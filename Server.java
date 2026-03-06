@@ -1,50 +1,35 @@
-package com.example.CSE.CSE5.SPRING;
+package com.example.CSE.CSE5.SPRING.controller;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.CSE.CSE5.SPRING.model.topic;
+import com.example.CSE.CSE5.SPRING.service.topicservice;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-
 public class Server {
-    List<topic> sarvil=new ArrayList<>(
-            Arrays.asList(
-                    new topic("101","saurydeep singh","address"),
-                    new topic("102","Sarvil","dehradun"),
-                    new topic("103","sanjana singh","Jamshedpur"),
-                    new topic("104","Saksham","dehradun")
 
+    @Autowired
+    topicservice TopicService;
 
-
-            )
-    );
-
-    @RequestMapping("/")
+    @GetMapping("/")
     public String hello(){
         return "hello mam";
     }
 
-
-
-    @RequestMapping("/sarvilhello")
+    @GetMapping("/sarvilhello")
     public List<topic> sarvil(){
-        return sarvil;
-
+        return TopicService.getSarvil();
     }
-    @RequestMapping("/sarvilhello/{myid}")
+
+    @GetMapping("/sarvilhello/{myid}")
     public topic hell(@PathVariable String myid){
-        Optional<topic> foundtopic= sarvil.stream().filter(t -> t.getId().equals(myid)).findFirst();
-        if(foundtopic.isPresent()){
-            return foundtopic.get();
-        }
-        else{
-            return new topic("N/A","N/A","N/A");
-        }
+        return TopicService.hell(myid);
+    }
+    @PostMapping("/sarvilhello")
+    public topic sarvilpost(@RequestBody topic t){
+        return TopicService.addTopic(t);
     }
 
 }

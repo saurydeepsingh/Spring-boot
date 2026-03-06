@@ -1,15 +1,25 @@
-package com.example.CSE.CSE5.SPRING;
+package com.example.CSE.CSE5.SPRING.model;
 
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
+
+@Component
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Entity
 public class topic {
+    @Id
     private String id;
     private String name;
     private String address;
 
-    public topic(String id, String name, String address) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-    }
+
 
     public String getId() {
         return id;
